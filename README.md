@@ -121,15 +121,15 @@
 
 ## 🔗 Relasi Antar Tabel
 
-| Tabel Asal              | Tabel Tujuan    | Jenis Relasi                   | Keterangan                                              |
-| ----------------------- | --------------- | ------------------------------ | ------------------------------------------------------- |
-| `users`                 | `user_profiles` | One to One                     | Setiap user memiliki satu profil                        |
-| `users`                 | `restaurants`   | One to Many                    | Owner bisa memiliki banyak restoran                     |
-| `restaurants`           | `menus`         | One to Many                    | Restoran memiliki banyak menu                           |
-| `users`                 | `reviews`       | One to Many                    | User bisa memberi banyak ulasan                         |
-| `restaurants`           | `reviews`       | One to Many                    | Restoran memiliki banyak ulasan                         |
-| `users`                 | `favorites`     | One to Many                    | User bisa menyimpan banyak entri favorit                |
-| `restaurants`           | `favorites`     | One to Many                    | Restoran bisa muncul di banyak entri favorit            |
-| `users` & `restaurants` | `favorites`     | Many to Many (via `favorites`) | Satu user bisa menyukai banyak restoran, dan sebaliknya |
-| `users`                 | `reports`       | One to Many                    | Satu user bisa membuat banyak laporan                   |
+| Tabel Asal              | Tabel Tujuan    | Jenis Relasi                   | Keterangan                                               |
+| ----------------------- | --------------- | ------------------------------ | -------------------------------------------------------  |
+| `users`                 | `user_profiles` | One to One                     | Setiap user memiliki satu profil                         |
+| `users`                 | `restaurants`   | One to Many                    | Owner bisa memiliki banyak restoran                      |
+| `restaurants`           | `menus`         | One to Many                    | Restoran memiliki banyak menu                            |
+| `users`                 | `reviews`       | One to Many                    | User bisa memberi banyak ulasan                          |
+| `restaurants`           | `reviews`       | One to Many                    | Restoran memiliki banyak ulasan                          |
+| `users`                 | `favorites`     | One to Many                    | User bisa menyimpan banyak entri favorit                 |
+| `restaurants`           | `favorites`     | One to Many                    | Restoran bisa muncul di banyak entri favorit             |
+| `users` & `restaurants` | `favorites`     | Many to Many (via `favorites`) | Satu user bisa menyukai banyak restoran, dan sebaliknya  |
+| `users`                 | `reports`       | One to Many                    | Satu user bisa membuat banyak laporan                    |
 
