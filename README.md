@@ -131,5 +131,5 @@
 | `users`                 | `favorites`     | One to Many                    | User bisa menyimpan banyak entri favorit                 |
 | `restaurants`           | `favorites`     | One to Many                    | Restoran bisa muncul di banyak entri favorit             |
 | `users` & `restaurants` | `favorites`     | Many to Many (via `favorites`) | Satu user bisa menyukai banyak restoran, dan sebaliknya  |
-| `users`                 | `reports`       | One to Many                    | Satu user bisa membuat banyak laporan                    |
+| `users`                 | `reports`       | One to Many                    | Satu user bisa membuat banyak laporan                   |
 
