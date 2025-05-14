@@ -11,108 +11,125 @@
   <strong>Framework Web Based</strong><br/><br/>
 </p>
 
-<h3>Role dan Fitur</h3>
+---
 
-## 👤 Pelanggan (User)
-| Fitur                         | Deskripsi                                                 |
-|-------------------------------|-----------------------------------------------------------|
-| Registrasi dan login          | Mendaftar dan masuk ke aplikasi                           |
-| Eksplorasi tempat makan       | Menelusuri restoran berdasarkan lokasi, rating, kategori  |
-| Memberi ulasan dan rating     | Menulis review dan memberi nilai untuk restoran           |
+### 👤 Pelanggan (User)
 
-## 🧑‍🍳 Pemilik Restoran (Owner)
-| Fitur                          | Deskripsi                                                       |
-|--------------------------------|-----------------------------------------------------------------|
-| Tambah profil restoran         | Menambahkan data restoran seperti alamat, menu, foto, dsb.      |
-| Edit informasi restoran        | Mengubah data restoran yang sudah ada                           |
-| Balas ulasan pelanggan         | Memberikan respon pada ulasan dari user                         |
-| Lihat statistik restoran       | Melihat jumlah kunjungan, rating rata-rata, dan performa lainnya|
+| Fitur                     | Deskripsi                                                |
+| ------------------------- | -------------------------------------------------------- |
+| Registrasi dan login      | Mendaftar dan masuk ke aplikasi                          |
+| Eksplorasi tempat makan   | Menelusuri restoran berdasarkan lokasi, rating, kategori |
+| Memberi ulasan dan rating | Menulis review dan memberi nilai untuk restoran          |
 
-## 🛠️ Admin
-| Fitur                     | Deskripsi                                                      |
-|---------------------------|----------------------------------------------------------------|
-| Kelola data pengguna      | Tambah, ubah, atau hapus akun user dan owner                   |
-| Verifikasi restoran       | Menyetujui atau menolak restoran yang diajukan owner           |
-| Moderasi ulasan           | Menghapus ulasan yang tidak pantas atau dilaporkan             |
-| Pantau statistik sistem   | Melihat aktivitas sistem dan laporan                           |
+### 🧑‍🍳 Explorer (Penjelajah)
 
-<h3>Tabel-tabel database beserta field dan tipe datanya</h3>
+| Fitur                 | Deskripsi                                                          |
+| --------------------- | ------------------------------------------------------------------ |
+| Jelajahi restoran     | Menelusuri restoran berdasarkan lokasi, kategori, atau popularitas |
+| Lihat review & rating | Membaca ulasan dari pengguna lain                                  |
+| Simpan favorit        | Menyimpan daftar restoran favorit untuk kunjungan berikutnya       |
+| Bagikan rekomendasi   | Membagikan tautan restoran ke media sosial atau ke teman           |
 
-<h3>Tabel Users</h3>
+### 🛠️ Admin
 
-| Kolom        | Tipe         | Keterangan                          |
-|--------------|--------------|-------------------------------------|
-| `id`         | bigint       | Primary key                         |
-| `username`   | string       | Nama pengguna                       |
-| `email`      | string       | Email pengguna                      |
-| `password`   | string       | Password terenkripsi                |
-| `role`       | enum         | `user`, `owner`, `admin`            |
-| `created_at` | timestamp    | Waktu registrasi                    |
-| `updated_at` | timestamp    | Waktu terakhir diubah               |
+| Fitur                   | Deskripsi                                                      |
+| ----------------------- | -------------------------------------------------------------- |
+| Kelola data pengguna    | Tambah, ubah, atau hapus akun user dan owner                   |
+| Verifikasi restoran     | Menyetujui atau menolak restoran yang diajukan owner           |
+| Moderasi ulasan         | Menghapus ulasan yang tidak pantas atau dilaporkan             |
+| Pantau statistik sistem | Melihat aktivitas sistem dan laporan                           |
 
-<h3>Tabel Restaurants</h3>
+---
 
-| Kolom         | Tipe      | Keterangan                                  |
-|---------------|-----------|---------------------------------------------|
-| `id`          | bigint    | Primary key                                 |
-| `owner_id`    | foreign   | ID user yang merupakan pemilik restoran     |
-| `name`        | string    | Nama restoran                               |
-| `address`     | text      | Alamat lengkap restoran                     |
-| `category`    | string    | Kategori makanan (misal: Jepang, Kopi)      |
-| `description` | text      | Deskripsi restoran                          |
-| `status`      | enum      | `pending`, `aktif`, `ditolak`               |
-| `created_at`  | timestamp |                                             |
-| `updated_at`  | timestamp |                                             |
+## 📂 Struktur Tabel Database
 
-<h3>Tabel Menus</h3>
+### `users`
 
-| Kolom         | Tipe      | Keterangan                              |
-|---------------|-----------|-----------------------------------------|
-| `id`          | bigint    | Primary key                             |
-| `restaurant_id`| foreign  | ID restoran                             |
-| `menu_name`   | string    | Nama menu                               |
-| `price`       | decimal   | Harga menu                              |
-| `description` | text      | Deskripsi menu                          |
+| Kolom      | Tipe     | Keterangan                                  |
+| ---------- | -------- | ------------------------------------------- |
+| `id`       | bigint   | Primary key                                 |
+| `username` | varchar  | Nama pengguna                               |
+| `email`    | varchar  | Email pengguna                              |
+| `password` | varchar  | Password (hashed)                           |
+| `role`     | varchar  | Role (`user`, `admin`, `explorer`)          |
 
-<h3>Tabel Reviews</h3>
+### `user_profiles`
 
-| Kolom         | Tipe      | Keterangan                                    |
-|---------------|-----------|-----------------------------------------------|
-| `id`          | bigint    | Primary key                                   |
-| `user_id`     | foreign   | ID user yang menulis ulasan                   |
-| `restaurant_id`| foreign  | ID restoran yang diulas                       |
-| `rating`      | int       | Nilai 1–5                                     |
-| `comment`     | text      | Isi ulasan                                    |
-| `date_posted` | timestamp | Tanggal ulasan dibuat                         |
+| Kolom        | Tipe     | Keterangan                           |
+| ------------ | -------- | ------------------------------------ |
+| `id`         | bigint   | Primary key                          |
+| `user_id`    | bigint   | Foreign key ke `users`               |
+| `bio`        | text     | Deskripsi singkat                    |
+| `avatar_url` | varchar  | URL foto profil                      |
+| `birthdate`  | date     | Tanggal lahir                        |
 
-<h3>Tabel Favorites (opsional)</h3>
+### `restaurants`
 
-| Kolom         | Tipe      | Keterangan                                |
-|---------------|-----------|-------------------------------------------|
-| `id`          | bigint    | Primary key                               |
-| `user_id`     | foreign   | ID user                                   |
-| `restaurant_id`| foreign  | ID restoran                               |
+| Kolom         | Tipe      | Keterangan                                                           |
+| ------------- | --------- | -------------------------------------------------------------------- |
+| `id`          | bigint    | Primary key                                                          |
+| `owner_id`    | bigint    | Foreign key ke `users`                                               |
+| `name`        | varchar   | Nama restoran                                                        |
+| `address`     | text      | Alamat restoran                                                      |
+| `category`    | varchar   | Kategori restoran (misalnya: Jepang, Kopi)                           |
+| `description` | text      | Deskripsi restoran                                                   |
+| `status`      | enum      | Status restoran (`pending`, `aktif`, `ditolak`)                      |
+| `created_at`  | timestamp | Tanggal dibuat                                                       |
+| `updated_at`  | timestamp | Terakhir diubah                                                      |
 
-<h3>Tabel Reports (opsional)</h3>
+### `menus`
 
-| Kolom         | Tipe      | Keterangan                                        |
-|---------------|-----------|---------------------------------------------------|
-| `id`          | bigint    | Primary key                                       |
-| `reporter_id` | foreign   | ID user yang melaporkan                           |
-| `target_type` | string    | `restaurant` atau `review`                        |
-| `target_id`   | bigint    | ID dari objek yang dilaporkan                     |
-| `reason`      | text      | Alasan laporan                                    |
-| `created_at`  | timestamp |                                                   |
+| Kolom           | Tipe     | Keterangan                                 |
+| --------------- | -------- | ------------------------------------------ |
+| `id`            | bigint   | Primary key                                |
+| `restaurant_id` | bigint   | Foreign key ke `restaurants`               |
+| `menu_name`     | varchar  | Nama menu                                  |
+| `price`         | decimal  | Harga menu                                 |
+| `description`   | text     | Deskripsi menu                             |
 
-<h3>Relasi Antar Tabel</h3>
+### `reviews`
 
-| Tabel Asal      | Tabel Tujuan     | Jenis Relasi   | Keterangan                                                                 |
-|------------------|------------------|----------------|----------------------------------------------------------------------------|
-| users            | restaurants       | One to Many    | Satu user dengan role `owner` dapat memiliki banyak restoran               |
-| users            | reviews           | One to Many    | Satu user dapat menulis banyak ulasan                                      |
-| users            | favorites         | One to Many    | Satu user dapat menyimpan banyak restoran ke favorit                       |
-| restaurants      | menus             | One to Many    | Satu restoran memiliki banyak menu                                         |
-| restaurants      | reviews           | One to Many    | Satu restoran menerima banyak ulasan                                       |
-| restaurants      | favorites         | One to Many    | Satu restoran bisa difavoritkan oleh banyak user                           |
-| users            | reports           | One to Many    | Satu user dapat membuat banyak laporan                                     |
-| reports          | reviews/restaurants | Polymorphic  | Laporan bisa ditujukan ke `review` atau `restaurant` berdasarkan `target_type` |
+| Kolom           | Tipe      | Keterangan                                               |
+| --------------- | --------- | -------------------------------------------------------- |
+| `id`            | bigint    | Primary key                                              |
+| `user_id`       | bigint    | Foreign key ke `users`                                   |
+| `restaurant_id` | bigint    | Foreign key ke `restaurants`                             |
+| `rating`        | int       | Nilai rating (1–5)                                       |
+| `comment`       | text      | Isi ulasan                                               |
+| `date_posted`   | timestamp | Tanggal ulasan dibuat                                    |
+
+### `favorites` (opsional)
+
+| Kolom           | Tipe   | Keterangan                                 |
+| --------------- | ------ | ------------------------------------------ |
+| `id`            | bigint | Primary key                                |
+| `user_id`       | bigint | Foreign key ke `users`                     |
+| `restaurant_id` | bigint | Foreign key ke `restaurants`               |
+
+### `reports` (opsional)
+
+| Kolom         | Tipe      | Keterangan                                                |
+| ------------- | --------- | --------------------------------------------------------- |
+| `id`          | bigint    | Primary key                                               |
+| `reporter_id` | bigint    | Foreign key ke `users`                                    |
+| `target_type` | varchar   | Jenis target (`restaurant`, `review`)                     |
+| `target_id`   | bigint    | ID dari objek yang dilaporkan                             |
+| `reason`      | text      | Alasan laporan                                            |
+| `created_at`  | timestamp | Tanggal laporan dibuat                                    |
+
+---
+
+## 🔗 Relasi Antar Tabel
+
+| Tabel Asal              | Tabel Tujuan    | Jenis Relasi                   | Keterangan                                              |
+| ----------------------- | --------------- | ------------------------------ | ------------------------------------------------------- |
+| `users`                 | `user_profiles` | One to One                     | Setiap user memiliki satu profil                        |
+| `users`                 | `restaurants`   | One to Many                    | Owner bisa memiliki banyak restoran                     |
+| `restaurants`           | `menus`         | One to Many                    | Restoran memiliki banyak menu                           |
+| `users`                 | `reviews`       | One to Many                    | User bisa memberi banyak ulasan                         |
+| `restaurants`           | `reviews`       | One to Many                    | Restoran memiliki banyak ulasan                         |
+| `users`                 | `favorites`     | One to Many                    | User bisa menyimpan banyak entri favorit                |
+| `restaurants`           | `favorites`     | One to Many                    | Restoran bisa muncul di banyak entri favorit            |
+| `users` & `restaurants` | `favorites`     | Many to Many (via `favorites`) | Satu user bisa menyukai banyak restoran, dan sebaliknya |
+| `users`                 | `reports`       | One to Many                    | Satu user bisa membuat banyak laporan                   |
+
